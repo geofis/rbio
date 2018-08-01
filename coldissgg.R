@@ -1,4 +1,7 @@
-coldissgg <- function(dist, ordered = T) {
+coldissgg <- function(dist, ordered = T, nc = 100) {
+  #dist = matriz de distancias
+  #ordered = ordered by distance value
+  #nc = number of colors
   require(reshape2)
   require(tidyr)
   require(dplyr)
@@ -17,7 +20,7 @@ coldissgg <- function(dist, ordered = T) {
   mypalette <- colorRampPalette(brewer.pal(11, "Spectral"), space="Lab")#Borrowed from Heatmap.R with spectral palette: https://gist.github.com/dsparks/3710171
   gg1 <- ggplot(dist.g, aes(Var1, Var2)) +
     geom_tile(aes(fill=value), colour = "white") +
-    scale_fill_gradientn(colours = mypalette(100), na.value = 'white') +
+    scale_fill_gradientn(colours = mypalette(nc), na.value = 'white') +
     geom_text(aes(label=round(value,2))) +
     labs(title='Dissimilarity matrix') +
     theme(
@@ -31,7 +34,7 @@ coldissgg <- function(dist, ordered = T) {
     coord_equal()
   gg2 <- ggplot(dist.g.o, aes(Var1, Var2)) +
     geom_tile(aes(fill=value), colour = "white") +
-    scale_fill_gradientn(colours = mypalette(100), na.value = 'white') +
+    scale_fill_gradientn(colours = mypalette(nc), na.value = 'white') +
     geom_text(aes(label=round(value,2))) +
     labs(title='Ordered dissimilarity matrix') +
     theme(
