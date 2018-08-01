@@ -39,8 +39,8 @@ coldissgg <- function(dist, vertical=F) {
     ) +
     coord_equal()
   if(vertical){
-    grid.arrange(gg1, gg2, nrow=2)
+    marrangeGrob(gg1, gg2, nrow=2)
   } else{
-    grid.arrange(gg1, gg2, ncol=2)
+    marrangeGrob(gg1, gg2, ncol=2)
   }
 }
