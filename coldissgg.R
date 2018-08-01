@@ -5,14 +5,17 @@ coldissgg <- function(dist, ordered = T) {
   require(gclus)
   require(gridExtra)
   dist.g <- melt(as.matrix(dist))
+  dist.g[dist.g$Var1==dist.g$Var2,'value'] <- NA
   dist.g$type <- 'Dissimilarity matrix'
   dist.g.o <- dist.g
   dist.g.o$Var1 <- factor(dist.g.o$Var1, levels=levels(dist.g.o$Var1)[order.single(1-dist)])
   dist.g.o$Var2 <- factor(dist.g.o$Var2, levels=levels(dist.g.o$Var2)[order.single(1-dist)])
   dist.g.o$type <- 'Ordered dissimilarity matrix'
+  mypalette <- colorRampPalette(brewer.pal(11, "Spectral"), space="Lab")
   gg1 <- ggplot(dist.g, aes(Var1, Var2)) +
     geom_tile(aes(fill=value), colour = "white") +
-    scale_fill_gradient(low = "darkgreen", high = "white", na.value = 'white') +
+    scale_fill_gradientn(colours = mypalette(100), na.value = 'white') +
+    # scale_fill_gradient(low = "darkgreen", high = "white", na.value = 'white') +
     geom_text(aes(label=round(value,2))) +
     labs(title='Dissimilarity matrix') +
     theme(
@@ -26,7 +29,8 @@ coldissgg <- function(dist, ordered = T) {
     coord_equal()
   gg2 <- ggplot(dist.g.o, aes(Var1, Var2)) +
     geom_tile(aes(fill=value), colour = "white") +
-    scale_fill_gradient(low = "darkgreen", high = "white", na.value = 'white') +
+    scale_fill_gradientn(colours = mypalette(100), na.value = 'white') +
+    # scale_fill_gradient(low = "darkgreen", high = "white", na.value = 'white') +
     geom_text(aes(label=round(value,2))) +
     labs(title='Ordered dissimilarity matrix') +
     theme(
