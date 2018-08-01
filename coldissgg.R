@@ -38,5 +38,5 @@ coldissgg <- function(dist) {
       plot.title = element_text(size=20, hjust = 0.5)
     ) +
     coord_equal()
-  dev.new();grid.arrange(gg1, gg2, ncol=2)
+  grid.arrange(gg1, gg2, ncol=2)
 }
