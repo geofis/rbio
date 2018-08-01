@@ -1,4 +1,4 @@
-coldissgg <- function(dist) {
+coldissgg <- function(dist, vertical=F) {
   require(reshape2)
   require(tidyr)
   require(dplyr)
@@ -38,5 +38,9 @@ coldissgg <- function(dist) {
       plot.title = element_text(size=20, hjust = 0.5)
     ) +
     coord_equal()
-  grid.arrange(gg1, gg2, ncol=2)
+  if(vertical){
+    grid.arrange(gg1, gg2, nrow=2)
+  } else{
+    grid.arrange(gg1, gg2, ncol=2)
+  }
 }
