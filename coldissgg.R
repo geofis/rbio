@@ -11,7 +11,7 @@ coldissgg <- function(dist, ordered = T) {
   dist.g.o$Var1 <- factor(dist.g.o$Var1, levels=levels(dist.g.o$Var1)[order.single(1-dist)])
   dist.g.o$Var2 <- factor(dist.g.o$Var2, levels=levels(dist.g.o$Var2)[order.single(1-dist)])
   dist.g.o$type <- 'Ordered dissimilarity matrix'
-  mypalette <- colorRampPalette(brewer.pal(11, "Spectral"), space="Lab")
+  mypalette <- colorRampPalette(brewer.pal(11, "Spectral"), space="Lab")#Borrowed from Heatmap.R with spectral palette: https://gist.github.com/dsparks/3710171
   gg1 <- ggplot(dist.g, aes(Var1, Var2)) +
     geom_tile(aes(fill=value), colour = "white") +
     scale_fill_gradientn(colours = mypalette(100), na.value = 'white') +
