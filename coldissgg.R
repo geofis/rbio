@@ -38,6 +38,6 @@ coldissgg <- function(dist) {
       plot.title = element_text(size=20, hjust = 0.5)
     ) +
     coord_equal()
-  gg1
-  gg2
+  print(gg1)
+  print(gg2)
 }
