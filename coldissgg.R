@@ -1,4 +1,4 @@
-coldissgg <- function(dist) {
+coldissgg <- function(dist, ordered = T) {
   require(reshape2)
   require(tidyr)
   require(dplyr)
@@ -16,12 +16,12 @@ coldissgg <- function(dist) {
     geom_text(aes(label=round(value,2))) +
     labs(title='Dissimilarity matrix') +
     theme(
-      text = element_text(size = 16),
+      text = element_text(size = 12),
       axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
       axis.title.x=element_blank(),
       axis.title.y=element_blank(),
       legend.position = 'none',
-      plot.title = element_text(size=20, hjust = 0.5)
+      plot.title = element_text(size=16, hjust = 0.5)
       ) +
     coord_equal()
   gg2 <- ggplot(dist.g.o, aes(Var1, Var2)) +
@@ -30,14 +30,13 @@ coldissgg <- function(dist) {
     geom_text(aes(label=round(value,2))) +
     labs(title='Ordered dissimilarity matrix') +
     theme(
-      text = element_text(size = 16),
+      text = element_text(size = 12),
       axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
       axis.title.x=element_blank(),
       axis.title.y=element_blank(),
       legend.position = 'none',
-      plot.title = element_text(size=20, hjust = 0.5)
+      plot.title = element_text(size=16, hjust = 0.5)
     ) +
     coord_equal()
-  print(gg1)
-  print(gg2)
+  if(ordered) print(gg2) else print(gg1)
 }
