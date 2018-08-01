@@ -16,7 +16,7 @@ coldissgg <- function(dist, ordered = T) {
     geom_text(aes(label=round(value,2))) +
     labs(title='Dissimilarity matrix') +
     theme(
-      text = element_text(size = 12),
+      text = element_text(size = 14),
       axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
       axis.title.x=element_blank(),
       axis.title.y=element_blank(),
@@ -30,7 +30,7 @@ coldissgg <- function(dist, ordered = T) {
     geom_text(aes(label=round(value,2))) +
     labs(title='Ordered dissimilarity matrix') +
     theme(
-      text = element_text(size = 12),
+      text = element_text(size = 14),
       axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
       axis.title.x=element_blank(),
       axis.title.y=element_blank(),
