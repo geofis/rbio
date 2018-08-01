@@ -6,6 +6,8 @@ coldissgg <- function(dist, ordered = T) {
   require(gridExtra)
   dist.g <- melt(as.matrix(dist))
   dist.g[,c('Var1','Var2')] <- lapply(dist.g[,c('Var1','Var2')], factor)
+  dist.g$Var1 <- factor(dist.g$Var1, levels=sort(levels(dist.g$Var1)))
+  dist.g$Var2 <- factor(dist.g$Var2, levels=sort(levels(dist.g$Var2)))
   dist.g[dist.g$Var1==dist.g$Var2,'value'] <- NA
   dist.g$type <- 'Dissimilarity matrix'
   dist.g.o <- dist.g
