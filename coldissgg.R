@@ -1,4 +1,4 @@
-coldissgg <- function(dist, ordered = T, nc = 100) {
+coldissgg <- function(dist, ordered = T, nc = 100, fsz = 4) {
   #dist = matriz de distancias
   #ordered = ordered by distance value
   #nc = number of colors
@@ -21,7 +21,7 @@ coldissgg <- function(dist, ordered = T, nc = 100) {
   gg1 <- ggplot(dist.g, aes(Var1, Var2)) +
     geom_tile(aes(fill=value), colour = "white") +
     scale_fill_gradientn(colours = mypalette(nc), na.value = 'white') +
-    geom_text(aes(label=round(value,2))) +
+    geom_text(aes(label=round(value,2)), size = fsz) +
     labs(title='Dissimilarity matrix') +
     theme(
       text = element_text(size = 16),
@@ -35,7 +35,7 @@ coldissgg <- function(dist, ordered = T, nc = 100) {
   gg2 <- ggplot(dist.g.o, aes(Var1, Var2)) +
     geom_tile(aes(fill=value), colour = "white") +
     scale_fill_gradientn(colours = mypalette(nc), na.value = 'white') +
-    geom_text(aes(label=round(value,2))) +
+    geom_text(aes(label=round(value,2)), size = fsz) +
     labs(title='Ordered dissimilarity matrix') +
     theme(
       text = element_text(size = 16),
