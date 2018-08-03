@@ -5,6 +5,7 @@ coldissgg <- function(dist, ordered = T, nc = 100, fsz = 4) {
   require(reshape2)
   require(tidyr)
   require(dplyr)
+  require(gclus)
   dist.g <- melt(as.matrix(dist))
   dist.g[,c('Var1','Var2')] <- lapply(dist.g[,c('Var1','Var2')], factor)
   dist.g$Var1 <- factor(dist.g$Var1, levels=sort(levels(dist.g$Var1)))
