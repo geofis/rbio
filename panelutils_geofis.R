@@ -32,7 +32,8 @@ panel.cor <- function(x, y, method="pearson", digits=3, cex.cor=1.2, no.col=FALS
 	txt <- paste(txt, prefix, sep="\n")
 	text(0.5, 0.5, txt, cex = cex.cor, font=sig, col=color)
 }
-#Kendall
+
+#Kendall. Added as default method, because the argument "method" was not passed to panel.cor function
 panel.cor.k <- function(x, y, method="kendall", digits=3, cex.cor=1.2, no.col=FALSE)
 {
 	usr <- par("usr"); on.exit(par(usr))
@@ -62,7 +63,7 @@ panel.cor.k <- function(x, y, method="kendall", digits=3, cex.cor=1.2, no.col=FA
 	text(0.5, 0.5, txt, cex = cex.cor, font=sig, col=color)
 }
 
-#Spearman
+#Spearman. Added as default method, because the argument "method" was not passed to panel.cor function
 panel.cor.s <- function(x, y, method="spearman", digits=3, cex.cor=1.2, no.col=FALSE)
 {
 	usr <- par("usr"); on.exit(par(usr))
