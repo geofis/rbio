@@ -3,16 +3,18 @@ shepard_plot <- function(
   d = qab.dch, #Distance matrix
   coph = qab.dch.single.coph, #Cophenetic matrix
   xlab = 'Chord Distance', #Label for x-axis, type of distance
-  clusmet = 'UPGMA'#Clustering method
-  ){
+  clusmet = 'UPGMA', #Name of the clustering method
+  xlim = c(0, sqrt(2)),
+  ylim = c(0, sqrt(2))
+){
   plot(
     d,
     coph,
     xlab = xlab,
     ylab = "Cophenetic distance",
     asp = 1,
-    xlim = c(0, sqrt(2)),
-    ylim = c(0, sqrt(2)),
+    xlim = xlim,
+    ylim = ylim,
     main = paste(
       clusmet,
       '\n',
