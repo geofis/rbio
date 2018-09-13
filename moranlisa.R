@@ -1,4 +1,4 @@
-moranlisa <- function(sp, nomel, nomel2, variable, estilo = c('B','W'), dmin = 0, dmax = 3, sign = 0.05, colgraf = 6){
+moranlisa <- function(sp, nomel, nomel2, variable, estilo = c('B','W'), mtest = 'none', dmin = 0, dmax = 3, sign = 0.05, colgraf = 6){
   #FUNCION moranlisa
   #REQUISITOS: transectos de 50x2 m en forma de objeto espacial de clase SpatialPointsDataFrame, cada poligono un quadrat 2x2 m...
   ##...con variables a las que interesa evaluar dependencia espacial general y local por Moran, y de las que se haran mapas lisa.
@@ -10,6 +10,7 @@ moranlisa <- function(sp, nomel, nomel2, variable, estilo = c('B','W'), dmin = 0
   #nomel2: nombre de la columna que identifica la subunidad muestral, el quadrat
   #variable: la variable a la que se evaluara dependencia
   #estilo: estilo de los pesos para la evaluacion de dependencia global y local
+  #mtest: metodo de ajuste del valor de p mediante pruebas multiples (multiple tests). Opciones: 'bonferroni', 'holm', 'hochberg', 'hommel', 'fdr'
   #dmin, dmax: distancia minima y maxima para el objeto de vecindad
   #sign: nivel de significancia para la prueba de hipotesis de aleatoriedad de Moran, tanto la global como la local
   #colgraf: numero de columnas del facet del grafico de Moran
@@ -47,9 +48,9 @@ moranlisa <- function(sp, nomel, nomel2, variable, estilo = c('B','W'), dmin = 0
           c1 = sp@data[sp@data[,nomel]==x, nomel2],
           c2 = var,
           c3 = lag.listw(w[[x]], var),
-          p = localmoran(var, w[[x]])[,'Pr(z > 0)'],
+          p = localmoran(var, w[[x]], p.adjust.method = mtest)[,'Pr(z > 0)'],
           x = sp@data[sp@data[,nomel]==x, 'x'],
-          Ii = localmoran(var, w[[x]])[,'Ii'])
+          Ii = localmoran(var, w[[x]])[,'Ii'], p.adjust.method = mtest)
       },
       simplify = F),
     data.frame, .id = nomel)
@@ -79,7 +80,7 @@ moranlisa <- function(sp, nomel, nomel2, variable, estilo = c('B','W'), dmin = 0
           panel.grid.major = element_line(colour = "grey", linetype = "dashed", size = 0.25),
           strip.background = element_rect(colour = "black", fill = "black"),
           strip.text.x = element_text(colour = "white", face = "bold")) +
-    coord_equal()
+    coord_cartesian()
   print(mp)
   #MAPA LISA. APLICA A TRANSECTO, DONDE LA COORDENADA x YA HA SIDO PREVIAMENTE CALCULADA EN EL OBJETO sp
   v_lv[,nomel] <- factor(v_lv[,nomel], rev(levels(v_lv[,nomel])))
