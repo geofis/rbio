@@ -1,4 +1,4 @@
-moranlisa <- function(sp, nomel, nomel2, variable, estilo = c('B','W'), mtest = 'none', dmin = 0, dmax = 3, sign = 0.05, colgraf = 6){
+moranlisa <- function(sp, nomel, nomel2, ylab = 'Transect Code', xlab = 'Quadrat Code', variable, estilo = c('B','W'), mtest = 'none', dmin = 0, dmax = 3, sign = 0.05, colgraf = 6){
   #FUNCION moranlisa
   #REQUISITOS: transectos de 50x2 m en forma de objeto espacial de clase SpatialPointsDataFrame, cada poligono un quadrat 2x2 m...
   ##...con variables a las que interesa evaluar dependencia espacial general y local por Moran, y de las que se haran mapas lisa.
@@ -6,7 +6,7 @@ moranlisa <- function(sp, nomel, nomel2, variable, estilo = c('B','W'), mtest = 
   ##Los quadrats deben estar identificados por ID unico
   #ARGUMENTOS
   #sp: objeto sp que contiene los transectos
-  #nomel: nombre de la columna que identifica la unidad muestral, el transecto
+  #nomel: nombre de la columna que identifica la unidad muestral, el transecto. CLASS debe ser FACTOR!
   #nomel2: nombre de la columna que identifica la subunidad muestral, el quadrat
   #variable: la variable a la que se evaluara dependencia
   #estilo: estilo de los pesos para la evaluacion de dependencia global y local
@@ -93,8 +93,9 @@ moranlisa <- function(sp, nomel, nomel2, variable, estilo = c('B','W'), mtest = 
     coord_fixed(ratio = 2) +
     theme(text = element_text(size = 18), legend.position =  c(1.10, 0.5)) +
     geom_rect(data = v_lv_rect, size=1, fill=NA, colour="black", aes(xmin = 0, xmax = 50, ymin = y2 - 0.5, ymax = y2 + 0.5)) +
-    scale_y_discrete(nomel, expand = c(0,0)) +
-    scale_x_continuous(breaks=seq(1,49,2), labels=seq(1,49,2), expand = c(0,0))
+    # scale_y_discrete(nomel, expand = c(0,0)) +
+    scale_x_continuous(breaks=seq(1,49,2), labels=seq(1,25,1), expand = c(0,0)) +
+    labs(x = xlab, y = ylab)
   print(lisa)
   dev.new()
   vartile <- ggplot(v_lv %>% dplyr::select_(x='x', y2=nomel, variable), aes_string(x = 'x', y = 'y2')) +
@@ -103,8 +104,9 @@ moranlisa <- function(sp, nomel, nomel2, variable, estilo = c('B','W'), mtest = 
     coord_fixed(ratio = 2) +
     theme(text = element_text(size = 18), legend.position = c(1.10, 0.5)) +
     geom_rect(data = v_lv_rect, size=1, fill=NA, colour="black", aes(xmin = 0, xmax = 50, ymin = y2 - 0.5, ymax = y2 + 0.5)) +
-    scale_y_discrete(nomel, expand = c(0,0)) +
-    scale_x_continuous(breaks=seq(1,49,2), labels=seq(1,49,2), expand = c(0,0))
+    # scale_y_discrete(nomel, expand = c(0,0)) +
+    scale_x_continuous(breaks=seq(1,49,2), labels=seq(1,25,1), expand = c(0,0)) +
+    labs(x = xlab, y = ylab)
   print(vartile)
   #QUITAR QUADRATS SOLITARIOS EN BORDES
   q2sdHHnoedge <- droplevels(as.data.frame(v_lv %>% filter(!grepl('not signif.|Low-Low', quadrant)) %>% group_by_(nomel) %>% dplyr::mutate(n=n()) %>% filter(n>1)))
